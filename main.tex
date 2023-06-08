@@ -1,0 +1,171 @@
+\documentclass[letterpaper,12pt]{article}
+
+% ==- VARIOUS COMMANDS -==================================== %
+\newcommand{\thesistitle}{Acceleration of the Kalman Filter Algorithm for the CLAS12 Event Reconstruction Software}
+\newcommand{\city}{Valpara\'iso}
+\newcommand{\studentname}{Bruno Benkel}
+\newcommand{\professorname}{Claudio Torres, Ph.D.}
+\newcommand{\fcorreferentname}{Hayk Hakobyan, Ph.D.}
+\newcommand{\scorreferentname}{Raquel Pezoa, Ph.D.}
+
+\newcommand{\exammonth}{September}
+\newcommand{\examyear}{2019}
+
+% ==- PACKAGES -============================================ %
+% --- FIGURES ---------------------------------------------- %
+% \usepackage[font=small]{caption}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{floatrow}
+\graphicspath{{figures/}}
+
+% --- TEXT ------------------------------------------------- %
+\usepackage[english]{babel}
+\usepackage{anyfontsize}
+\usepackage{courier}
+\usepackage{textcomp}
+\usepackage{gensymb}
+
+% --- GEOMETRY --------------------------------------------- %
+\usepackage[letterpaper,top=2.5cm,bottom=3cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\renewcommand{\baselinestretch}{1.0}
+\setlength{\parindent}{0cm}
+\usepackage[explicit]{titlesec}
+
+\titleformat{name=\section}[block]{\fontsize{16}{24}\selectfont\bfseries}{}{0pt}{#1}
+\titleformat{name=\section,numberless}[block]{\fontsize{16}{24}\selectfont\bfseries}{}{0pt}{#1}
+\titlespacing*{name=\section}{0pt}{0pt}{0.5cm}
+\titlespacing*{name=\section,numberless}{0pt}{0pt}{0.5cm}
+
+\setlength{\parskip}{0.4cm}
+
+% --- MATHS ------------------------------------------------ %
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{siunitx}
+\newtheorem{lemma}{Lemma}
+
+% --- TABLES ----------------------------------------------- %
+\usepackage{booktabs}
+\usepackage{multirow}
+
+% --- OTHERS ----------------------------------------------- %
+\usepackage[ruled]{algorithm2e}
+\usepackage{hyperref}
+\hypersetup{colorlinks = false}
+
+% --- FANCY STUFF ------------------------------------------ %
+\usepackage{tocstyle}
+\usetocstyle{allwithdot}
+
+\usepackage{lastpage}
+
+\usepackage{fancyhdr}
+\fancypagestyle{firstpage}{
+    \lhead{}
+    \chead{}
+    \rhead{}
+    \lfoot{}
+    \cfoot{\fontsize{10}{12}\selectfont \thepage}
+    \rfoot{}
+    \renewcommand{\headrulewidth}{0pt}
+}
+\fancypagestyle{intermediate}{
+    \lhead{}
+    \chead{\fontsize{10}{12}\selectfont\MakeUppercase{\thesistitle}}
+    \rhead{}
+    \lfoot{}
+    \cfoot{\fontsize{10}{12}\selectfont Page \textbf{\thepage}\ of \textbf{\pageref{LastPage}}}
+    \rfoot{}
+    \renewcommand{\headrulewidth}{1pt}
+}
+
+% ==- SECTION COMMANDS -==================================== %
+\newcommand{\secnumbersection}[1]{
+\addtocounter{section}{1}
+\section*{CHAPTER \thesection \texorpdfstring{\\}\ #1}
+\addcontentsline{toc}{section}{CHAPTER \thesection : #1}
+\setcounter{subsection}{0}
+}
+\newcommand{\secnumberlesssection}[1]{
+\section*{#1}
+\phantomsection
+\addcontentsline{toc}{section}{#1}
+\setcounter{subsection}{0}
+}
+
+\addto\captionsspanish{\renewcommand{\contentsname}{CONTENTS INDEX}}
+\addto\captionsspanish{\renewcommand{\listfigurename}{FIGURES INDEX}}
+\addto\captionsspanish{\renewcommand{\listtablename}{TABLES INDEX}}
+\makeatletter
+\renewenvironment{thebibliography}[1]
+     {\secnumberlesssection{REFERENCES}
+      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}
+      \list{\@biblabel{\@arabic\c@enumiv}}
+           {\settowidth\labelwidth{\@biblabel{#1}}
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}
+      \endlist}
+\makeatother
+
+% ==- BEGIN WRITING DOCUMENT -============================== %
+\begin{document}
+    \sloppy
+
+    % Title page
+    \pagestyle{firstpage}
+    \pagenumbering{roman}
+    \input{00first_pages}
+    \newpage
+
+    % Table of contents
+    \thispagestyle{firstpage}
+    \tableofcontents
+
+    % List of figures
+    \newpage
+    \thispagestyle{firstpage}
+    \phantomsection
+    \addcontentsline{toc}{section}{LIST OF FIGURES}
+    \listoffigures
+
+    % Beginning of actual document
+    \newpage
+    \pagestyle{intermediate}
+    \pagenumbering{arabic}
+    \input{10introduction}
+    \newpage
+    \input{11state_of_the_art}
+    \newpage
+    \input{12problem_definition}
+    \newpage
+    \input{13_0conceptual_framework} % Note: There's a spacing issue.
+    \newpage
+    \input{14_0code_profiling}
+    \newpage
+    \input{15_0solution_proposal}
+    \newpage
+    \input{16_0solution_validation}
+    \newpage
+    \input{17_0concluding_remarks}
+    \newpage
+
+    \input{20_00appendices}
+    \newpage
+
+    \bibliographystyle{apalike}
+    \bibliography{21references}{}
+\end{document}
+
+% Note: The chapter references are hardcoded due to a bug in the format. If for any reason the chapters change order, figure out where the references are by searching for "CHAPTER REFERENCE".
